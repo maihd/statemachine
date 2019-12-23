@@ -1,3 +1,5 @@
+local StaticState = {}
+
 local gameObject = {
     animator = {
         runAnimation = function (name, speed)
@@ -43,7 +45,7 @@ function walk(gameObject)
     end
 end
 
-function love.keypressed(key)
+function StaticState.keypressed(key)
     if key == "space" then
         if currentState == states.walk then
             idle(gameObject)
@@ -53,7 +55,7 @@ function love.keypressed(key)
     end
 end
 
-function love.update()
+function StaticState.update()
     if isChanged then
         isChanged = false
 
@@ -64,9 +66,11 @@ function love.update()
     end
 end
 
-function love.draw()
+function StaticState.draw()
     love.graphics.print("Static state implements")
     love.graphics.print("Press SPACE to " .. (currentState == states.idle and "idle" or "walk"), 0, 16)
 
     
 end
+
+return StaticState
