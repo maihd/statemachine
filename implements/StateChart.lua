@@ -5,7 +5,7 @@ function StateMachine(chart)
     local firstName, firstState = getFirstState(states)
 
     local currentState = states[chart.initial] or firstState
-    local currentProps = chart.props
+    local currentProps = currentState.props or chart.props
     local currentName  = chart.initial or firstName
 
     local function dispatch(input, ...)
@@ -109,8 +109,8 @@ local StateChart = {
 function StateChart.load(gameObject)
     stateMachine = StateMachine(chart)
     
-    stateMachine.dispatch("WALK", gameObject)
-    stateMachine.dispatch("IDLE", gameObject)
+    local props = stateMachine.getProps()
+    gameObject.animator:runAnimation(props.animation, props.animSpeed)
 end
 
 function StateChart.keypressed(gameObject, key, scancode)
