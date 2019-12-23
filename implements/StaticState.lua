@@ -1,6 +1,9 @@
-local StaticState = {}
 local Animation = require("Animation")
 local Atlas = require("Atlas")
+
+local StaticState = {
+    title = "Static state"
+}
 
 local atlas = Atlas.load("assets/adventurer-Sheet.png", 11, 7)
 
@@ -31,7 +34,7 @@ local states = {
 
     walk = {
         animation = "walk",
-        animSpeed = 2.0,
+        animSpeed = 1.5,
     },
 }
 
@@ -56,7 +59,7 @@ function StaticState.load()
     idle(gameObject)
 end
 
-function StaticState.keypressed(key)
+function StaticState.keypressed(key, scancode)
     if key == "space" then
         if currentState == states.walk then
             idle(gameObject)
@@ -81,7 +84,7 @@ end
 
 function StaticState.draw()
     love.graphics.print("Static state implements")
-    love.graphics.print("Press SPACE to " .. (currentState == states.idle and "idle" or "walk"), 0, 16)
+    love.graphics.print("Press SPACE to transition to " .. (currentState == states.idle and "idle" or "walk"), 0, 16)
 
     local animation = gameObject.animator.animation
     Animation.draw(animation, love.graphics.getWidth() * 0.5 - animation.width * 0.5, love.graphics.getHeight() * 0.5 - animation.height * 0.5, 0, 1.0, 1.0)
