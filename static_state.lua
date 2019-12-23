@@ -12,7 +12,7 @@ local states = {
         animation = "walk",
         animSpeed = 2.0,
     },
-};
+}
 
 local initialState = states.idle 
 local currentState = initialState
