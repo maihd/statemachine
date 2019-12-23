@@ -1,7 +1,9 @@
 local StaticState = require("StaticState")
 local Animation = require("Animation")
+local Atlas = require("Atlas")
 
-local animation = Animation.load("adventurer-Sheet.png", 7, 11, 0.1)
+local atlas = Atlas.load("assets/adventurer-Sheet.png", 11, 7)
+local animation = Animation.load(atlas, { 1, 2, 3, 4 }, 0.25)
 
 function love.keypressed(key, scancode)
     StaticState.keypressed(key, scancode)
@@ -14,5 +16,5 @@ end
 
 function love.draw()
     StaticState.draw()
-    Anmation.draw(animation)
+    Animation.draw(animation, love.graphics.getWidth() * 0.5 - animation.width * 0.5, love.graphics.getHeight() * 0.5 - animation.height * 0.5, 0, 1.0, 1.0)
 end
