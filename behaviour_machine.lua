@@ -2,6 +2,9 @@
 -- It was hardly based on OOP
 -- behaviour is easy an stateful object
 -- but cannot be stateless/immutable object
+-- @ref: https://docs.unity3d.com/Manual/ExecutionOrder.html
+-- @ref: https://gameprogrammingpatterns.com/state.html
+-- @ref: https://gameprogrammingpatterns.com/update-method.html
 
 local Behaviour = class("Behaviour", {
     onEnter = function ()
