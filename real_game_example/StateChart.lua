@@ -76,9 +76,9 @@ local chart = {
 
             WALK = { 
                 target = "walk",
-                action = function (state, props, gameObject) 
+                action = function (state, props, entity) 
                     print(props.animation)
-                    gameObject.animator:runAnimation(props.animation, props.animSpeed)
+                    entity:runAnimation(props.animation, props.animSpeed)
                 end
             }
         },
@@ -91,9 +91,9 @@ local chart = {
 
             IDLE = { 
                 target = "idle",
-                action = function (state, props, gameObject)
+                action = function (state, props, entity)
                     print(props.animation)
-                    gameObject.animator:runAnimation(props.animation, props.animSpeed)
+                    entity:runAnimation(props.animation, props.animSpeed)
                 end
             }
         }
@@ -106,28 +106,28 @@ local StateChart = {
     title = "State chart"
 }
 
-function StateChart.load(gameObject)
+function StateChart.load(entity)
     stateMachine = StateMachine(chart)
     
     local props = stateMachine.getProps()
-    gameObject.animator:runAnimation(props.animation, props.animSpeed)
+    entity:runAnimation(props.animation, props.animSpeed)
 end
 
-function StateChart.keypressed(gameObject, key, scancode)
+function StateChart.keypressed(entity, key, scancode)
     if key == "space" then
         if stateMachine.getName() == "walk" then
-            stateMachine.dispatch("IDLE", gameObject)
+            stateMachine.dispatch("IDLE", entity)
         elseif stateMachine.getName() == "idle" then
-            stateMachine.dispatch("WALK", gameObject)
+            stateMachine.dispatch("WALK", entity)
         end
     end
 end
 
-function StateChart.update(gameObject, dt)
+function StateChart.update(entity, dt)
 
 end
 
-function StateChart.draw(gameObject)
+function StateChart.draw(entity)
     love.graphics.print("State chart implements")
     love.graphics.print("Press SPACE to transition to " .. (stateMachine.getName() == "walk" and "idle" or "walk"), 0, 16)
 end

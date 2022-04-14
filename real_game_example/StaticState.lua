@@ -31,32 +31,32 @@ function walk(gameObject)
     end
 end
 
-function StaticState.load(gameObject)
-    idle(gameObject)
+function StaticState.load(entity)
+    idle(entity)
 end
 
-function StaticState.keypressed(gameObject, key, scancode)
+function StaticState.keypressed(entity, key, scancode)
     if key == "space" then
         if currentState == states.walk then
-            idle(gameObject)
+            idle(entity)
         elseif currentState == states.idle then
-            walk(gameObject)
+            walk(entity)
         end
     end
 end
 
-function StaticState.update(gameObject, dt)
+function StaticState.update(entity, dt)
     if isChanged then
         isChanged = false
 
         local animName = currentState.animation
-        local animator = gameObject.animator
+        local animator = entity.animator
 
         animator:runAnimation(animName, currentState.animSpeed)
     end
 end
 
-function StaticState.draw(gameObject)
+function StaticState.draw(entity)
     love.graphics.print("Static state implements")
     love.graphics.print("Press SPACE to transition to " .. (currentState == states.idle and "idle" or "walk"), 0, 16)
 end

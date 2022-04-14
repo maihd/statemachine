@@ -1,3 +1,6 @@
+require "core"
+require "unit_tests/tests"
+
 --loading ldtk library
 local ldtk = require 'ldtk'
 
@@ -24,43 +27,27 @@ local Atlas = require("Atlas")
 
 local StateChart  = require("StateChart")
 
-local atlas = Atlas.load("assets/adventurer-Sheet.png", 11, 7)
+local Hero = require("Hero")
 
-local gameObject = {
-    animator = {
-        animation = nil,
-        animSpeed = 0,
-
-        runAnimation = function (self, name, speed)
-            if name == "idle" then
-                self.animation = Animation.load(atlas, { 1, 2, 3, 4 }, 0.25)
-                self.animSpeed = speed
-            elseif name == "walk" then
-                self.animation = Animation.load(atlas, { 10, 11, 12, 13, 14 }, 0.2)
-                self.animSpeed = speed
-            else
-                error("unknown animation: " .. name)
-            end
-        end
-    },
-}
+local hero = Hero()
 
 local objects = {} --all objects are here
 
-
---classes are used for the example
-local class = require 'classic'
-
 --object class 
-local object = class:extend()
+local Entity = class()
 
-function object:new(e)
-    self.x, self.y = e.x, e.y
-    self.w, self.h = e.width, e.height
-    self.visible = e.visible
+function Entity:ctor(defs)
+    for k, v in pairs(defs.props) do
+        print(k, v)
+    end
+
+    self.x, self.y = defs.x, defs.y
+    self.w, self.h = defs.width, defs.height
+    self.visible = defs.visible
+    self.name = defs.identifier or "Entity"
 end
 
-function object:draw()
+function Entity:draw()
     if self.visible then
         --drawing a rectangle to represent the entity
         love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
@@ -94,7 +81,7 @@ function love.load()
         You can use ldtk ldtk.getColorHex(color) to get an RGB table like {0.21, 0.57, 0.92}
     ]]
     function ldtk.entity(entity)
-        local newObject = object(entity) --creating new object based on the class we defined before
+        local newObject = Entity(entity) --creating new object based on the class we defined before
         table.insert(objects, newObject) --add the object to the table we use to draw
     end
 
@@ -147,8 +134,8 @@ function love.load()
         You can reload current level (if player loses for example)
         ldtk:reload()
     ]]
-    
-    StateChart.load(gameObject)
+
+    hero = Hero()
 end
 
 
@@ -171,20 +158,17 @@ local keys = {
 function love.keypressed(key, scancode)
     if keys[key] then keys[key]() end
 
-    StateChart.keypressed(gameObject, key, scancode)
+    hero:keypressed(key, scancode)
 end
 
 function love.update(dt)
-    StateChart.update(gameObject, dt)
-
-    if gameObject.animator.animation then
-        Animation.update(gameObject.animator.animation, gameObject.animator.animSpeed * dt)
-    end
+    hero:update(dt)
 end
 
 local len
 function love.draw()
     love.graphics.scale(2, 2) --scalling the screen for pixelart
+    
     len = #objects 
     for i = 1, len, 1 do
         objects[i]:draw() --drawing every object in order
@@ -193,10 +177,5 @@ function love.draw()
     love.graphics.scale(0.5, 0.5) --scaling for the UI
     love.graphics.print('Use left and right arrows to change the level.\nWhite squares are entities.', 10, 10)
 
-    StateChart.draw(gameObject)
-
-    if gameObject.animator.animation then
-        local animation = gameObject.animator.animation
-        Animation.draw(animation, love.graphics.getWidth() * 0.5 - animation.width * 0.5, love.graphics.getHeight() * 0.5 - animation.height * 0.5, 0, 1.0, 1.0)
-    end
+    hero:draw()
 end
