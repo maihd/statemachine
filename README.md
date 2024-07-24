@@ -7,6 +7,7 @@ State machine is widely used in many games, applications.
 1. https://www.glassdoor.com/Interview/What-is-a-state-machine-and-how-are-they-used-in-games-QTN_2934473.htm
 2. https://www.slideshare.net/naughty_dog/statebased-scripting-in-uncharted-2-among-thieves
 3. State objects from God Of War engine
+4. https://github.com/Real-Serious-Games/Fluent-State-Machine
 
 ## Type of state machine
 
