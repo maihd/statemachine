@@ -20,3 +20,4 @@ State machine is widely used in many games, applications.
 ## Example
 
 1. Love2D
+2. (Planning) Love2D + Fennel + State Machine framework based on Naughty Dogs version
