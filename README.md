@@ -10,7 +10,7 @@ State machine is widely used in many games, applications.
 4. https://github.com/Real-Serious-Games/Fluent-State-Machine
 5. Hades Lua Gameplay Framework
 
-## Type of state machine
+## Types of state machine
 
 1. Static state
 2. State chart
@@ -18,7 +18,7 @@ State machine is widely used in many games, applications.
 4. Push-down automata
 5. Functional state machine (like redux/flux)
 
-## Example
+## Examples
 
 1. Love2D
 2. (Planning) Love2D + Fennel + State Machine framework based on Naughty Dogs version
