@@ -8,6 +8,7 @@ State machine is widely used in many games, applications.
 2. https://www.slideshare.net/naughty_dog/statebased-scripting-in-uncharted-2-among-thieves
 3. State objects from God Of War engine
 4. https://github.com/Real-Serious-Games/Fluent-State-Machine
+5. Hades Lua Gameplay Framework
 
 ## Type of state machine
 
@@ -21,3 +22,4 @@ State machine is widely used in many games, applications.
 
 1. Love2D
 2. (Planning) Love2D + Fennel + State Machine framework based on Naughty Dogs version
+3. (Planning) Hades Lua Framework
